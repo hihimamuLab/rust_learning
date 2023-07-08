@@ -1,1 +1,1 @@
-/home/hihimamu/workspace/rust_learning/restaurant/target/debug/librestaurant.rlib: /home/hihimamu/workspace/rust_learning/restaurant/src/front_of_house.rs /home/hihimamu/workspace/rust_learning/restaurant/src/lib.rs
+/home/hihimamu/workspace/rust_learning/restaurant/target/debug/librestaurant.rlib: /home/hihimamu/workspace/rust_learning/restaurant/src/front_of_house/hosting.rs /home/hihimamu/workspace/rust_learning/restaurant/src/front_of_house.rs /home/hihimamu/workspace/rust_learning/restaurant/src/lib.rs
