@@ -1,6 +1,12 @@
+#![allow(unused)]
 fn main() {
-    let mut s1: String = String::from("foo");
-    let s2: &str = "bar";
-    s1.push_str(s2);
-    println!("s2 is {}", s2);
+    use std::collections::HashMap;
+
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+
+    println!("{:?}", scores.entry(String::from("Yellow")));
+    println!("{:?}", scores.entry(String::from("Blue")));
+
+    println!("{:?}", scores);
 }
