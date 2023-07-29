@@ -1,12 +1,5 @@
-#![allow(unused)]
-fn main() {
-    use std::collections::HashMap;
+fn main () {
+    let v = vec![0, 1, 2];
 
-    let mut scores = HashMap::new();
-    scores.insert(String::from("Blue"), 10);
-
-    println!("{:?}", scores.entry(String::from("Yellow")));
-    println!("{:?}", scores.entry(String::from("Blue")));
-
-    println!("{:?}", scores);
+    v[99];
 }
