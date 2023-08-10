@@ -1,11 +1,11 @@
 use std::io;
 
 fn main() {
-    let numbers: Vec<i32> = read_buffer();
-    let division_int: i32 = numbers[0] / numbers[1];
-    let surplus: i32 = numbers[0] % numbers[1];
-    let division_float: f64 = numbers[0] as f64 / numbers[1] as f64;
-    println!("{} {} {}", division_int, surplus, division_float);
+    let number: Vec<i32> = read_buffer();
+    let pie: f64 = 3.141592653589793;
+    let area: f64 = pie * number[0] as f64 * number[0] as f64;
+    let circumference: f64 = pie * number[0] as f64 * 2.0;
+    println!("{} {}", area, circumference);
 } 
 
 fn read_buffer() -> Vec<i32> {
