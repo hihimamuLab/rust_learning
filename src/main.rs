@@ -1,20 +1,26 @@
 use std::io;
 
 fn main() {
-    let number: Vec<i32> = read_buffer();
-    let pie: f64 = 3.141592653589793;
-    let area: f64 = pie * number[0] as f64 * number[0] as f64;
-    let circumference: f64 = pie * number[0] as f64 * 2.0;
-    println!("{} {}", area, circumference);
-} 
-
-fn read_buffer() -> Vec<i32> {
-    let mut buffer: String = String::new();
-    io::stdin()
-        .read_line(&mut buffer)
-        .expect("Error");
-    buffer.trim()
-        .split_whitespace()
-        .map(|x| x.parse().expect("Error"))
-        .collect()
+    loop {
+        let mut formula_str: String = String::new();
+        io::stdin()
+            .read_line(&mut formula_str)
+            .expect("Error");
+        let formula: Vec<&str> = formula_str
+            .split_whitespace()
+            .collect();
+        let num_1: i32 = formula[0].parse().unwrap();
+        let num_2: i32 = formula[2].parse().unwrap();
+        if formula[1] == "+" {
+            println!("{}", num_1 + num_2);
+        } else if formula[1] == "-" {
+            println!("{}", num_1 - num_2);
+        } else if formula[1] == "*" {
+            println!("{}", num_1 * num_2);
+        } else if formula[1] == "/" {
+            println!("{}", num_1 / num_2);
+        } else if formula[1] == "?" {
+            break;
+        } 
+    }
 }
