@@ -1,23 +1,24 @@
 use std::io;
 
 fn main() {
-    let mut input = String::new();
-
-    // Ctrl+D (Unix) または Ctrl+Z (Windows) を入力するまで繰り返し入力を受け付ける
-    while let Ok(bytes_read) = io::stdin().read_line(&mut input) {
-        if bytes_read == 0 {
+    loop {
+        let mut buffer: Vec<i32> = read_buffer();
+        if buffer[0] == 0 && buffer[1] == 0 {
             break;
+        }else {
+            buffer.sort();
+            println!("{} {}", buffer[0], buffer[1]);
         }
-
-        // 入力が空行だったらループを抜ける
-        if input.trim().is_empty() {
-            break;
-        }
-
-        // 入力を使って何か処理を行う（ここでは入力を表示するだけ）
-        println!("入力: {}", input);
-
-        // 次の入力を受け付けるために input をクリアする
-        input.clear();
     }
+}
+
+fn read_buffer() -> Vec<i32> {
+    let mut buffer: String = String::new();
+    io::stdin()
+        .read_line(&mut buffer)
+        .expect("Error");
+    buffer.trim()
+        .split_whitespace()
+        .map(|x| x.parse().expect("Error"))
+        .collect()
 }
