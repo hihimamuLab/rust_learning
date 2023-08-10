@@ -2,13 +2,10 @@ use std::io;
 
 fn main() {
     let numbers: Vec<i32> = read_buffer();
-    let mut factor: i32 = 0;
-    for i in numbers[0]..=numbers[1] {
-        if numbers[2] % i == 0 {
-            factor += 1;   
-        }
-    }
-    println!("{}", factor);
+    let division_int: i32 = numbers[0] / numbers[1];
+    let surplus: i32 = numbers[0] % numbers[1];
+    let division_float: f64 = numbers[0] as f64 / numbers[1] as f64;
+    println!("{} {} {}", division_int, surplus, division_float);
 } 
 
 fn read_buffer() -> Vec<i32> {
