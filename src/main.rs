@@ -1,16 +1,15 @@
 use std::io;
 
 fn main() {
-    loop {
-        let mut buffer: Vec<i32> = read_buffer();
-        if buffer[0] == 0 && buffer[1] == 0 {
-            break;
-        }else {
-            buffer.sort();
-            println!("{} {}", buffer[0], buffer[1]);
+    let numbers: Vec<i32> = read_buffer();
+    let mut factor: i32 = 0;
+    for i in numbers[0]..=numbers[1] {
+        if numbers[2] % i == 0 {
+            factor += 1;   
         }
     }
-}
+    println!("{}", factor);
+} 
 
 fn read_buffer() -> Vec<i32> {
     let mut buffer: String = String::new();
