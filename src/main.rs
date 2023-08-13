@@ -1,60 +1,23 @@
-use std::io::*;
-use std::str::FromStr;
-
-struct Scanner<R: Read> {
-    reader: R,
-}
-
-#[allow(dead_code)]
-impl<R: Read> Scanner<R> {
-    fn new(reader: R) -> Scanner<R> {
-        Scanner { reader: reader }
-    }
-
-    fn safe_read<T: FromStr>(&mut self) -> Option<T> {
-        let token = self.reader.by_ref().bytes().map(|c| c.unwrap() as char)
-            .skip_while(|c| c.is_whitespace())
-            .take_while(|c| !c.is_whitespace())
-            .collect::<String>();
-        if token.is_empty() {
-            None
-        } else {
-            token.parse::<T>().ok()
-        }
-    }
-
-    fn read<T: FromStr>(&mut self) -> T {
-        if let Some(s) = self.safe_read() {
-            s
-        } else {
-            writeln!(stderr(), "Terminated with EOF").unwrap();
-            std::process::exit(0);
-        }
-    }
-}
-
 fn main() {
-    let cin = stdin();
-    let cin = cin.lock();
-    let mut sc = Scanner::new(cin);
+    let mut input_string = String::new();
+    std::io::stdin().read_line(&mut input_string).expect("error");
 
-    loop {
-        let h: u32 = sc.read();
-        let w: u32 = sc.read();
-        if h == 0 { break }
-        for i in 0..h {
-            for j in 0..w {
-                let c = if (i + j) % 2 == 0 {
-                    '#'
-                } else {
-                    '.'
-                };
-                print!("{}", c);
+    let n = input_string.trim().parse::<usize>().unwrap();
+    
+    for i in 1..=n {
+        if i % 3 == 0 {
+            print!(" {}", i);
+        } else {
+            let mut j = i;
+            loop {
+                if j % 10 == 3 {
+                    print!(" {}", i);
+                    break;
+                }
+                j /= 10;
+                if j == 0 { break; }
             }
-            println!("");
         }
-        println!("");
     }
+    println!("");
 }
-
-
