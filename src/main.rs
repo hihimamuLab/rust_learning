@@ -1,23 +1,11 @@
 fn main() {
-    let mut input_string = String::new();
-    std::io::stdin().read_line(&mut input_string).expect("error");
+    let mut buf1: String = String::new();
+    std::io::stdin().read_line(&mut buf1).expect("error");
+    let mut buf2 = String::new();
+    std::io::stdin().read_line(&mut buf2).expect("error");
 
-    let n = input_string.trim().parse::<usize>().unwrap();
-    
-    for i in 1..=n {
-        if i % 3 == 0 {
-            print!(" {}", i);
-        } else {
-            let mut j = i;
-            loop {
-                if j % 10 == 3 {
-                    print!(" {}", i);
-                    break;
-                }
-                j /= 10;
-                if j == 0 { break; }
-            }
-        }
-    }
-    println!("");
+    let seq_a_rev: Vec<&str> = buf2.split_whitespace().rev().collect();
+    let ans = seq_a_rev.join(" ");
+
+    println!("{}", ans);
 }
