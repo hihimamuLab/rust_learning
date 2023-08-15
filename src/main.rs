@@ -1,31 +1,28 @@
-use std::{io, collections::HashMap};
-
-const SUITS: &str = "SHCD";
+use std::io;
+use std::io::BufRead;
 
 fn main() {
-    let mut cards = HashMap::new();
-
-    let mut buf1 = String::new();
-    io::stdin()
-        .read_line(&mut buf1)
-        .expect("error");
-    let n: usize = buf1.trim().parse().unwrap();
-
-    for _ in 0..n {
-        let mut buf2 = String::new();
-        io::stdin()
-            .read_line(&mut buf2)
-            .expect("error");
-        let card: String = buf2.trim().to_string();
-        cards.insert(card, true);
+    let mut arr = vec![[[0; 10]; 3]; 4];
+    let stdin = io::stdin();
+    for line in stdin.lock().lines().skip(1) {
+        let v: Vec<i32> = line.unwrap()
+            .split_whitespace()
+            .map(|s| s.parse().unwrap())
+            .collect();
+        let (b, f, r, v) = (v[0] - 1, v[1] - 1, v[2] - 1, v[3]);
+        arr[b as usize][f as usize][r as usize] += v;
     }
-
-    for suit in SUITS.chars() {
-        for rank in 1..=13 {
-            let card = format!("{} {}", suit, rank);
-            if cards.get(&card) == None {
-                println!("{}", card);
+    for (i, b) in arr.iter().enumerate() {
+        for f in b.iter() {
+            for r in f.iter() {
+                print!(" {}", *r);
             }
+            println!("");
+        }
+        if i < 3 {
+            println!("####################");
         }
     }
 }
+
+
