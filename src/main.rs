@@ -1,28 +1,64 @@
-use std::io;
-use std::io::BufRead;
+use std::thread;
+use std::time::Duration;
+use std::collections::HashMap as map;
 
-fn main() {
-    let mut arr = vec![[[0; 10]; 3]; 4];
-    let stdin = io::stdin();
-    for line in stdin.lock().lines().skip(1) {
-        let v: Vec<i32> = line.unwrap()
-            .split_whitespace()
-            .map(|s| s.parse().unwrap())
-            .collect();
-        let (b, f, r, v) = (v[0] - 1, v[1] - 1, v[2] - 1, v[3]);
-        arr[b as usize][f as usize][r as usize] += v;
-    }
-    for (i, b) in arr.iter().enumerate() {
-        for f in b.iter() {
-            for r in f.iter() {
-                print!(" {}", *r);
-            }
-            println!("");
+struct Cacher<T>
+    where T: Fn(u32) -> u32
+{
+    calculation: T,
+    value: map<u32, u32>,
+}
+
+impl<T> Cacher<T>
+    where T: Fn(u32) -> u32
+{
+    fn new(calculation: T) -> Cacher<T> {
+        Cacher {
+            calculation,
+            value: map::new(),
         }
-        if i < 3 {
-            println!("####################");
+    }
+
+    fn value(&mut self, arg: u32) -> u32 {
+        match self.value.get(&arg) {
+            Some(v) => *v,
+            None => {
+                let v = (self.calculation)(arg);
+                self.value.insert(arg, v);
+                v
+            },
         }
     }
 }
 
+fn generate_workout(intensity: u32, random_number: u32) {
+    let mut expensive_result = Cacher::new(|num| {
+        println!("calculating slowly...");
+        thread::sleep(Duration::from_secs(2));
+        num
+    });
 
+    if intensity < 25 {
+        println!(
+            "Today, do {} pushups!",
+            expensive_result.value(intensity)
+        );
+        println!(
+            "Next, do {} situps!",
+            expensive_result.value(intensity)
+        );
+    } else {
+        if random_number == 3 {
+            println!("Take a break today! Remember to stay hydrated!");
+        } else {
+            println!(
+                "Today, run for {} minutes!",
+                expensive_result.value(intensity)
+            );
+        }
+    }
+}
+
+fn main() {
+    generate_workout(10, 5);
+}
